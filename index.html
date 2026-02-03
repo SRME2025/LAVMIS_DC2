@@ -11,12 +11,16 @@
     <style>
         :root { 
             --sidebar-width: 480px; 
-            --primary: #1a252f; 
+            --primary: #2c3e50; 
             --accent: #3498db; 
             --success: #27ae60; 
             --valuation: #f39c12; 
-            --panel-bg: #2c3e50; 
+            --panel-bg: #ffffff; 
             --warning: #e74c3c;
+            --text-primary: #2c3e50;
+            --text-secondary: #7f8c8d;
+            --border: #e0e0e0;
+            --light-bg: #f8f9fa;
         }
         
         body, html { 
@@ -24,19 +28,21 @@
             padding: 0; 
             height: 100%; 
             width: 100%; 
-            font-family: 'Segoe UI', sans-serif; 
+            font-family: 'Segoe UI', 'Roboto', sans-serif; 
             overflow: hidden; 
             display: flex; 
+            background-color: #f5f7fa;
+            color: var(--text-primary);
         }
         
-        /* LOGIN MODAL STYLES */
+        /* LOGIN MODAL STYLES - White theme */
         #loginModal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #1a252f 0%, #2c3e50 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -44,18 +50,18 @@
         }
         
         .login-container {
-            background: var(--panel-bg);
-            border-radius: 12px;
+            background: white;
+            border-radius: 16px;
             padding: 40px;
             width: 90%;
             max-width: 400px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border-top: 4px solid var(--valuation);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid var(--accent);
             text-align: center;
         }
         
         .login-container h2 {
-            color: var(--valuation);
+            color: var(--primary);
             margin-bottom: 30px;
             font-size: 1.8rem;
             display: flex;
@@ -71,51 +77,55 @@
         
         .login-input-group label {
             display: block;
-            color: #bdc3c7;
+            color: var(--text-secondary);
             margin-bottom: 8px;
             font-size: 0.9rem;
+            font-weight: 500;
         }
         
         .login-input-group input {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #34495e;
-            border-radius: 6px;
-            background: #2c3e50;
-            color: white;
+            padding: 14px 15px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            background: white;
+            color: var(--text-primary);
             font-size: 1rem;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
             box-sizing: border-box;
         }
         
         .login-input-group input:focus {
             border-color: var(--accent);
             outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
         }
         
         .login-button {
             width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, var(--valuation) 0%, #e67e22 100%);
-            color: #1a252f;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--accent) 0%, #2980b9 100%);
+            color: white;
             border: none;
-            border-radius: 6px;
-            font-weight: bold;
+            border-radius: 8px;
+            font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
-            transition: transform 0.2s, opacity 0.2s;
+            transition: all 0.2s;
             margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
         }
         
         .login-button:hover {
-            opacity: 0.9;
             transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(52, 152, 219, 0.3);
         }
         
         .login-button:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
         }
         
         .login-error {
@@ -128,31 +138,33 @@
         .login-logo {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, var(--valuation) 0%, #e67e22 100%);
+            background: linear-gradient(135deg, var(--accent) 0%, #2980b9 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
         }
         
         .login-logo i {
             font-size: 36px;
-            color: #1a252f;
+            color: white;
         }
         
         .login-footer {
             margin-top: 25px;
             font-size: 0.8rem;
-            color: #95a5a6;
-            border-top: 1px solid #34495e;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
             padding-top: 15px;
         }
         
         .login-attempts {
             font-size: 0.75rem;
-            color: #f39c12;
+            color: var(--valuation);
             margin-top: 10px;
+            font-weight: 500;
         }
         
         .locked-out {
@@ -174,20 +186,22 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(26, 37, 47, 0.95);
+            background: rgba(255, 255, 255, 0.95);
             z-index: 10000;
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(5px);
         }
         
         .backup-progress-container {
-            background: var(--panel-bg);
-            border-radius: 12px;
+            background: white;
+            border-radius: 16px;
             padding: 30px;
             width: 90%;
             max-width: 400px;
             text-align: center;
             border-top: 4px solid var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
         
         .backup-progress-container h3 {
@@ -202,10 +216,11 @@
         .progress-bar {
             width: 100%;
             height: 20px;
-            background: #34495e;
+            background: var(--light-bg);
             border-radius: 10px;
             margin: 20px 0;
             overflow: hidden;
+            border: 1px solid var(--border);
         }
         
         .progress-fill {
@@ -217,7 +232,7 @@
         }
         
         .progress-text {
-            color: #bdc3c7;
+            color: var(--text-secondary);
             font-size: 0.9rem;
             margin-top: 10px;
         }
@@ -231,29 +246,30 @@
         }
         
         .backup-stat {
-            background: #34495e;
-            padding: 10px;
-            border-radius: 6px;
+            background: var(--light-bg);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
         }
         
         .backup-stat-label {
             font-size: 0.75rem;
-            color: #95a5a6;
+            color: var(--text-secondary);
             margin-bottom: 5px;
         }
         
         .backup-stat-value {
             font-size: 1rem;
-            color: white;
-            font-weight: bold;
+            color: var(--text-primary);
+            font-weight: 600;
         }
         
         .backup-success {
             display: none;
             margin-top: 20px;
             padding: 15px;
-            background: rgba(39, 174, 96, 0.2);
-            border-radius: 6px;
+            background: rgba(39, 174, 96, 0.1);
+            border-radius: 8px;
             border-left: 4px solid var(--success);
         }
         
@@ -270,22 +286,25 @@
             height: 100%;
         }
         
+        /* SIDEBAR - White Theme */
         #sidebar { 
             width: var(--sidebar-width); 
-            background: var(--primary); 
-            color: white; 
-            padding: 15px; 
+            background: white; 
+            color: var(--text-primary); 
+            padding: 20px; 
             overflow-y: auto; 
             z-index: 2000; 
             display: flex;
             flex-direction: column;
+            border-right: 1px solid var(--border);
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
         }
         
         #map { 
             flex-grow: 1; 
             height: 100%; 
             z-index: 1; 
-            background: #222; 
+            background: #f0f2f5; 
             cursor: crosshair;
         }
         
@@ -293,78 +312,144 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            margin-bottom: 15px; 
+            margin-bottom: 20px; 
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
         }
         
         .indicator { 
-            padding: 4px 10px; 
-            border-radius: 12px; 
-            font-size: 0.7rem; 
-            font-weight: bold; 
+            padding: 6px 12px; 
+            border-radius: 20px; 
+            font-size: 0.75rem; 
+            font-weight: 600; 
+            letter-spacing: 0.5px;
         }
         
-        .on { background: var(--success); }
-        .off { background: var(--warning); }
-        .warning-ind { background: #f39c12; }
+        .on { background: #e8f6ef; color: var(--success); border: 1px solid #d5f0e1; }
+        .off { background: #fdeaea; color: var(--warning); border: 1px solid #f9d6d6; }
+        .warning-ind { background: #fef9e7; color: var(--valuation); border: 1px solid #fcf3cf; }
 
         .panel { 
-            background: var(--panel-bg); 
-            border-radius: 8px; 
-            padding: 12px; 
-            margin-bottom: 12px; 
-            border-top: 4px solid var(--accent); 
+            background: white; 
+            border-radius: 12px; 
+            padding: 20px; 
+            margin-bottom: 15px; 
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: box-shadow 0.2s;
+        }
+        
+        .panel:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .panel h3 {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-bg);
         }
         
         .cache-controls { 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
-            gap: 8px; 
+            gap: 10px; 
             margin-top: 10px; 
         }
         
+        /* BUTTONS - Modern White Theme */
         button { 
             background: var(--accent); 
             color: white; 
             border: none; 
-            padding: 10px; 
-            border-radius: 6px; 
+            padding: 12px; 
+            border-radius: 8px; 
             cursor: pointer; 
-            font-weight: bold; 
-            transition: opacity 0.2s;
+            font-weight: 600; 
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
-        button:hover { opacity: 0.9; }
+        button:hover { 
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
         
         button:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
         }
         
-        button.warning { background: var(--warning); }
-        button.success { background: var(--success); }
-        button.secondary { background: #95a5a6; }
-        button.point { background: #8e44ad; }
-        button.info { background: #3498db; }
+        button.warning { 
+            background: var(--warning); 
+            box-shadow: 0 2px 4px rgba(231, 76, 60, 0.2);
+        }
         
-        input, select { 
+        button.success { 
+            background: var(--success); 
+            box-shadow: 0 2px 4px rgba(39, 174, 96, 0.2);
+        }
+        
+        button.secondary { 
+            background: #95a5a6; 
+            box-shadow: 0 2px 4px rgba(149, 165, 166, 0.2);
+        }
+        
+        button.point { 
+            background: #8e44ad; 
+            box-shadow: 0 2px 4px rgba(142, 68, 173, 0.2);
+        }
+        
+        button.info { 
+            background: #3498db; 
+            box-shadow: 0 2px 4px rgba(52, 152, 219, 0.2);
+        }
+        
+        /* INPUTS & SELECTS - White Theme */
+        input, select, textarea { 
             width: 100%; 
-            padding: 8px; 
-            margin: 5px 0; 
-            border-radius: 4px; 
-            border: none; 
+            padding: 12px; 
+            margin: 8px 0; 
+            border-radius: 8px; 
+            border: 1px solid var(--border);
             box-sizing: border-box;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            background: white;
+            color: var(--text-primary);
+            transition: all 0.2s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
         }
         
         .small-input {
-            font-size: 0.8rem !important;
-            padding: 6px !important;
+            font-size: 0.85rem !important;
+            padding: 10px !important;
         }
         
         .property-fields {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
+            gap: 12px;
             margin: 10px 0;
         }
         
@@ -372,122 +457,183 @@
             grid-template-columns: 1fr;
         }
         
+        .field-group {
+            margin: 8px 0;
+        }
+        
+        .field-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+        }
+        
+        .required::after {
+            content: " *";
+            color: var(--warning);
+        }
+        
+        .optional::after {
+            content: " (Optional)";
+            color: var(--text-secondary);
+            font-size: 0.8em;
+            font-weight: normal;
+        }
+        
+        .registration-type-toggle {
+            display: flex;
+            margin: 15px 0;
+            background: var(--light-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        
+        .registration-type-toggle button {
+            flex: 1;
+            border-radius: 0;
+            padding: 12px;
+            background: transparent;
+            color: var(--text-secondary);
+            box-shadow: none;
+        }
+        
+        .registration-type-toggle button.active {
+            background: var(--accent);
+            color: white;
+        }
+        
         .location-toggle {
             display: flex;
-            margin: 10px 0;
-            background: #34495e;
-            border-radius: 4px;
+            margin: 15px 0;
+            background: var(--light-bg);
+            border-radius: 8px;
             overflow: hidden;
+            border: 1px solid var(--border);
         }
         
         .location-toggle button {
             flex: 1;
             border-radius: 0;
-            padding: 8px;
-            background: #34495e;
+            padding: 12px;
+            background: transparent;
+            color: var(--text-secondary);
+            box-shadow: none;
         }
         
         .location-toggle button.active {
             background: var(--accent);
+            color: white;
         }
         
         .gps-status {
-            padding: 8px;
-            margin: 10px 0;
-            background: #34495e;
-            border-radius: 4px;
-            font-size: 0.8rem;
+            padding: 15px;
+            margin: 15px 0;
+            background: var(--light-bg);
+            border-radius: 8px;
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
+            border: 1px solid var(--border);
         }
         
         .gps-accuracy-bar {
-            height: 6px;
-            background: #2c3e50;
-            border-radius: 3px;
-            margin: 5px 0;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin: 8px 0;
             overflow: hidden;
         }
         
         .gps-accuracy-fill {
             height: 100%;
-            border-radius: 3px;
+            border-radius: 4px;
             transition: width 0.5s, background 0.5s;
         }
         
         .gps-status-text {
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             text-align: center;
-            color: #bdc3c7;
+            color: var(--text-secondary);
+            margin-top: 4px;
         }
         
         .table-container { 
-            background: #1a252f; 
-            border-radius: 6px; 
+            background: var(--light-bg); 
+            border-radius: 8px; 
             overflow-x: auto; 
             max-height: 180px;
-            font-size: 0.75rem; 
+            font-size: 0.8rem; 
             flex-grow: 1;
             margin-bottom: 10px;
+            border: 1px solid var(--border);
         }
         
         .log-container {
-            background: #1a252f;
-            border-radius: 6px;
+            background: var(--light-bg);
+            border-radius: 8px;
             overflow-x: auto;
             max-height: 180px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             flex-grow: 1;
             margin-bottom: 10px;
+            border: 1px solid var(--border);
             display: flex;
             flex-direction: column;
         }
         
         .log-header {
-            padding: 8px;
-            background: #2c3e50;
-            border-bottom: 1px solid #34495e;
+            padding: 12px;
+            background: white;
+            border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-radius: 8px 8px 0 0;
         }
         
         .log-content {
-            padding: 8px;
+            padding: 12px;
             overflow-y: auto;
             flex-grow: 1;
         }
         
         .log-entry {
-            padding: 6px 8px;
-            margin-bottom: 4px;
-            background: #2c3e50;
-            border-radius: 4px;
-            border-left: 3px solid #3498db;
-            font-size: 0.7rem;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            background: white;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent);
+            font-size: 0.8rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
         
         .log-entry.success {
-            border-left-color: #27ae60;
+            border-left-color: var(--success);
+            background: linear-gradient(to right, #e8f6ef 0%, white 100%);
         }
         
         .log-entry.warning {
-            border-left-color: #f39c12;
+            border-left-color: var(--valuation);
+            background: linear-gradient(to right, #fef9e7 0%, white 100%);
         }
         
         .log-entry.error {
-            border-left-color: #e74c3c;
+            border-left-color: var(--warning);
+            background: linear-gradient(to right, #fdeaea 0%, white 100%);
         }
         
         .log-time {
-            color: #95a5a6;
-            font-size: 0.65rem;
-            margin-bottom: 2px;
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            margin-bottom: 4px;
+            font-weight: 500;
         }
         
         .log-message {
-            color: white;
+            color: var(--text-primary);
         }
         
         table { 
@@ -496,75 +642,103 @@
         }
         
         th, td { 
-            padding: 8px; 
+            padding: 10px 12px; 
             text-align: left; 
-            border-bottom: 1px solid #2c3e50; 
+            border-bottom: 1px solid var(--border); 
         }
         
-        tr:hover { background: #2c3e50; cursor: pointer; }
+        th {
+            background: white;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        tr:hover { 
+            background: rgba(52, 152, 219, 0.05); 
+            cursor: pointer; 
+        }
         
         .preview-panel {
             display: none;
-            background: #34495e;
+            background: white;
             border-radius: 8px;
-            padding: 15px;
-            margin-top: 10px;
+            padding: 20px;
+            margin-top: 15px;
+            border: 1px solid var(--border);
             border-left: 4px solid var(--accent);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
         
         .preview-panel h4 {
             margin-top: 0;
-            color: var(--accent);
-            border-bottom: 1px solid #4a6278;
-            padding-bottom: 5px;
+            margin-bottom: 15px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--light-bg);
+            padding-bottom: 10px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .preview-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            font-size: 0.85rem;
+            gap: 12px;
+            font-size: 0.9rem;
         }
         
         .preview-item {
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
         
         .preview-label {
-            font-weight: bold;
-            color: #bdc3c7;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-bottom: 2px;
         }
         
         .preview-value {
-            color: white;
+            color: var(--text-primary);
+            word-break: break-word;
         }
         
         .evidence-container {
-            margin: 10px 0;
+            margin: 15px 0;
         }
         
         .camera-btn {
             width: 100%;
             margin: 5px 0;
-            background: #8e44ad !important;
+            background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%) !important;
+            color: white;
         }
         
         .image-preview {
             max-width: 100%;
             max-height: 150px;
             margin-top: 10px;
-            border-radius: 4px;
+            border-radius: 8px;
             display: none;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         
         #coordinates {
-            font-size: 0.7rem;
-            color: #bdc3c7;
+            font-size: 0.85rem;
+            color: var(--text-primary);
             text-align: center;
-            padding: 5px;
-            background: #2c3e50;
-            border-radius: 4px;
-            margin: 5px 0;
+            padding: 12px;
+            background: var(--light-bg);
+            border-radius: 8px;
+            margin: 10px 0;
+            border: 1px solid var(--border);
+            font-weight: 500;
         }
         
         @media (max-width: 768px) { 
@@ -575,20 +749,23 @@
         
         .map-controls {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 20px;
+            right: 20px;
             z-index: 1000;
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 8px;
         }
         
         .map-controls button {
             background: white;
             color: var(--primary);
-            border-radius: 4px;
-            padding: 8px 12px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 12px 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 1px solid var(--border);
+            width: 45px;
+            height: 45px;
         }
         
         .manual-marker {
@@ -599,27 +776,29 @@
         
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+            50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
         
         .gps-accuracy-threshold {
             position: absolute;
-            top: 60px;
-            left: 10px;
-            background: rgba(44, 62, 80, 0.9);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 4px;
-            font-size: 0.75rem;
+            top: 20px;
+            left: 20px;
+            background: white;
+            color: var(--text-primary);
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
             z-index: 1000;
             border-left: 4px solid var(--accent);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
         }
         
         .auto-center-control {
             position: absolute;
             bottom: 20px;
-            right: 10px;
+            right: 20px;
             z-index: 1000;
         }
         
@@ -627,39 +806,42 @@
             background: white;
             color: var(--primary);
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             padding: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 1px solid var(--border);
         }
         
         .auto-center-control button.active {
             background: var(--accent);
             color: white;
+            border-color: var(--accent);
         }
         
         .storage-status {
-            padding: 8px;
-            margin: 10px 0;
-            background: #34495e;
-            border-radius: 4px;
-            font-size: 0.8rem;
+            padding: 15px;
+            margin: 15px 0;
+            background: var(--light-bg);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            border: 1px solid var(--border);
         }
         
         .storage-bar {
-            height: 8px;
-            background: #2c3e50;
-            border-radius: 4px;
-            margin: 8px 0;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            margin: 12px 0;
             overflow: hidden;
         }
         
         .storage-fill {
             height: 100%;
-            border-radius: 4px;
+            border-radius: 5px;
             background: linear-gradient(90deg, #27ae60, #f39c12);
             transition: width 0.5s;
         }
@@ -667,15 +849,16 @@
         .storage-info {
             display: flex;
             justify-content: space-between;
-            font-size: 0.75rem;
-            color: #bdc3c7;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
         }
         
         .storage-actions {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-top: 10px;
+            gap: 10px;
+            margin-top: 15px;
         }
         
         .modal-overlay {
@@ -685,53 +868,52 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(255, 255, 255, 0.95);
             z-index: 3000;
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(5px);
         }
         
         .modal {
-            background: var(--panel-bg);
-            border-radius: 8px;
-            padding: 20px;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
             max-width: 500px;
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
         
         .modal h3 {
             margin-top: 0;
-            color: var(--accent);
-            border-bottom: 1px solid #4a6278;
-            padding-bottom: 10px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--light-bg);
+            padding-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .data-backup {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        
-        .field-group {
-            margin: 8px 0;
-        }
-        
-        .field-group label {
-            font-size: 0.75rem;
-            color: #bdc3c7;
-            display: block;
-            margin-bottom: 3px;
+            gap: 15px;
+            margin-top: 20px;
         }
         
         .section-title {
-            color: var(--accent);
-            font-size: 0.9rem;
-            margin: 15px 0 8px 0;
-            border-bottom: 1px solid #4a6278;
-            padding-bottom: 5px;
+            color: var(--primary);
+            font-size: 0.95rem;
+            margin: 20px 0 10px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--light-bg);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         /* Danger confirmation modal styles */
@@ -740,17 +922,17 @@
         }
         
         .danger-modal {
-            background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
-            border: 3px solid #e74c3c;
+            background: white;
+            border: 2px solid #e74c3c;
             border-radius: 12px;
-            box-shadow: 0 0 30px rgba(231, 76, 60, 0.5);
+            box-shadow: 0 0 30px rgba(231, 76, 60, 0.15);
             animation: danger-pulse 2s infinite;
         }
         
         @keyframes danger-pulse {
-            0% { box-shadow: 0 0 20px rgba(231, 76, 60, 0.5); }
-            50% { box-shadow: 0 0 40px rgba(231, 76, 60, 0.8); }
-            100% { box-shadow: 0 0 20px rgba(231, 76, 60, 0.5); }
+            0% { box-shadow: 0 0 20px rgba(231, 76, 60, 0.15); }
+            50% { box-shadow: 0 0 40px rgba(231, 76, 60, 0.25); }
+            100% { box-shadow: 0 0 20px rgba(231, 76, 60, 0.15); }
         }
         
         .danger-modal h3 {
@@ -763,7 +945,7 @@
         .danger-btn {
             background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%) !important;
             color: white !important;
-            font-weight: bold !important;
+            font-weight: 600 !important;
             border: none !important;
         }
         
@@ -777,19 +959,22 @@
         .user-info {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.8rem;
-            background: rgba(52, 152, 219, 0.2);
-            padding: 4px 10px;
-            border-radius: 12px;
+            gap: 10px;
+            font-size: 0.85rem;
+            background: rgba(52, 152, 219, 0.1);
+            padding: 8px 12px;
+            border-radius: 20px;
+            color: var(--accent);
+            font-weight: 500;
         }
         
         .logout-btn {
             background: transparent !important;
             color: #e74c3c !important;
-            padding: 2px 8px !important;
-            font-size: 0.7rem !important;
+            padding: 4px 8px !important;
+            font-size: 0.75rem !important;
             border: 1px solid #e74c3c !important;
+            box-shadow: none !important;
         }
         
         .logout-btn:hover {
@@ -800,19 +985,20 @@
         /* Auto-backup notification */
         .auto-backup-notification {
             position: fixed;
-            bottom: 20px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
             background: linear-gradient(135deg, var(--accent) 0%, #2980b9 100%);
             color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
             z-index: 4000;
             display: none;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             animation: slideUp 0.3s ease-out;
+            border: none;
         }
         
         @keyframes slideUp {
@@ -831,7 +1017,74 @@
         }
         
         .auto-backup-notification span {
-            font-weight: bold;
+            font-weight: 600;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--light-bg);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+        
+        /* Leaflet map controls - White theme */
+        .leaflet-control-zoom {
+            border: 1px solid var(--border) !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+            border-radius: 8px !important;
+            overflow: hidden;
+        }
+        
+        .leaflet-control-zoom a {
+            background: white !important;
+            color: var(--text-primary) !important;
+            border-bottom: 1px solid var(--border) !important;
+            width: 36px !important;
+            height: 36px !important;
+            line-height: 36px !important;
+        }
+        
+        .leaflet-control-zoom a:hover {
+            background: var(--light-bg) !important;
+        }
+        
+        .leaflet-control-attribution {
+            background: rgba(255, 255, 255, 0.9) !important;
+            color: var(--text-secondary) !important;
+            border: 1px solid var(--border) !important;
+            border-radius: 4px !important;
+            padding: 4px 8px !important;
+            font-size: 0.75rem !important;
+        }
+        
+        /* Toggle switch for manual entry */
+        .manual-entry-toggle {
+            margin-top: 8px;
+            font-size: 0.8rem;
+        }
+        
+        .toggle-link {
+            color: var(--accent);
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        
+        .toggle-link:hover {
+            color: #2980b9;
         }
     </style>
 </head>
@@ -863,7 +1116,7 @@
         </div>
         
         <button class="login-button" id="loginButton" onclick="attemptLogin()">
-            <i class="fa-solid fa-right-to-bracket"></i> LOGIN TO LAVMIS
+            <i class="fa-solid fa-right-to-bracket"></i> LOGIN TO LAVMIS DATA COLLECTOR MODULE
         </button>
         
         <div class="login-footer">
@@ -940,60 +1193,141 @@
 
         <div class="panel">
             <h3><i class="fa-solid fa-map"></i> Offline Map Cache</h3>
-            <p style="font-size: 0.75rem; color: #bdc3c7;">Zoom into your project area while online, then click "Cache Visible Area" to save imagery for offline use.</p>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4;">Zoom into your project area while online, then click "Cache Visible Area" to save imagery for offline use.</p>
             <div class="cache-controls">
-                <button onclick="cacheTiles()" style="background: var(--valuation); color: #1a252f;">Cache Area</button>
-                <button onclick="clearCache()" style="background: #95a5a6;">Clear Map</button>
+                <button onclick="cacheTiles()" style="background: var(--valuation); color: white;">
+                    <i class="fa-solid fa-download"></i> Cache Area
+                </button>
+                <button onclick="clearCache()" class="secondary">
+                    <i class="fa-solid fa-trash"></i> Clear Map
+                </button>
             </div>
-            <div id="cache-status" style="font-size: 0.7rem; margin-top: 5px;">Storage Used: Calculating...</div>
+            <div id="cache-status" style="font-size: 0.8rem; margin-top: 10px; color: var(--text-secondary);">
+                <i class="fa-solid fa-hard-drive"></i> Storage Used: Calculating...
+            </div>
         </div>
 
         <div class="panel">
             <h3><i class="fa-solid fa-location-crosshairs"></i> Data Capture</h3>
             
-            <div class="section-title">Property Information</div>
+            <div class="section-title">
+                <i class="fa-solid fa-id-card"></i> Property Information
+            </div>
             
             <div class="property-fields">
                 <div class="field-group">
-                    <label for="propertyId">Property ID</label>
-                    <input type="text" id="propertyId" placeholder="Enter Property ID" class="small-input">
+                    <label for="propertyId" class="required">Property ID</label>
+                    <input type="text" id="propertyId" placeholder="Auto-generated" class="small-input" readonly>
                 </div>
                 <div class="field-group">
-                    <label for="propertyName">Property Name</label>
-                    <input type="text" id="propertyName" placeholder="Enter Property Name" class="small-input">
+                    <label for="propertyName" class="optional">Property Name</label>
+                    <input type="text" id="propertyName" placeholder="Enter Property Name (Optional)" class="small-input">
+                </div>
+            </div>
+            
+            <div class="section-title">
+                <i class="fa-solid fa-file-signature"></i> Registration Type
+            </div>
+            
+            <div class="registration-type-toggle" id="registrationTypeToggle">
+                <button id="titledToggle" class="active" onclick="setRegistrationType('titled')">
+                    <i class="fa-solid fa-file-contract"></i> Titled
+                </button>
+                <button id="untitledToggle" onclick="setRegistrationType('untitled')">
+                    <i class="fa-solid fa-file-alt"></i> Untitled
+                </button>
+            </div>
+            
+            <div class="property-fields" id="titleFields">
+                <div class="field-group">
+                    <label for="plotNumber">Plot Number</label>
+                    <input type="text" id="plotNumber" placeholder="Enter Plot Number" class="small-input">
+                </div>
+                <div class="field-group">
+                    <label for="blockNumber">Block Number</label>
+                    <input type="text" id="blockNumber" placeholder="Enter Block Number" class="small-input">
+                </div>
+            </div>
+            
+            <div class="section-title">
+                <i class="fa-solid fa-location-dot"></i> Location Information
+            </div>
+            
+            <div class="property-fields full-width">
+                <div class="field-group">
+                    <label for="districtCity" class="required">District/City</label>
+                    <select id="districtCity" class="small-input" onchange="updateSubcounties()">
+                        <option value="">Select District/City</option>
+                    </select>
+                    <div class="manual-entry-toggle">
+                        <span class="toggle-link" onclick="toggleManualEntry('districtCity')">Not in list? Type manually</span>
+                    </div>
+                    <input type="text" id="districtCityManual" placeholder="Type District/City manually" class="small-input" style="display: none;">
                 </div>
             </div>
             
             <div class="property-fields">
                 <div class="field-group">
-                    <label for="district">District</label>
-                    <input type="text" id="district" placeholder="Enter District" class="small-input">
+                    <label for="subcounty" class="required">Subcounty</label>
+                    <select id="subcounty" class="small-input" onchange="updateParishes()" disabled>
+                        <option value="">Select Subcounty</option>
+                    </select>
+                    <div class="manual-entry-toggle">
+                        <span class="toggle-link" onclick="toggleManualEntry('subcounty')">Not in list? Type manually</span>
+                    </div>
+                    <input type="text" id="subcountyManual" placeholder="Type Subcounty manually" class="small-input" style="display: none;">
                 </div>
                 <div class="field-group">
-                    <label for="county">County</label>
-                    <input type="text" id="county" placeholder="Enter County" class="small-input">
-                </div>
-            </div>
-            
-            <div class="property-fields">
-                <div class="field-group">
-                    <label for="subcounty">Subcounty</label>
-                    <input type="text" id="subcounty" placeholder="Enter Subcounty" class="small-input">
-                </div>
-                <div class="field-group">
-                    <label for="parish">Parish</label>
-                    <input type="text" id="parish" placeholder="Enter Parish" class="small-input">
+                    <label for="parish" class="required">Parish</label>
+                    <select id="parish" class="small-input" onchange="updateVillages()" disabled>
+                        <option value="">Select Parish</option>
+                    </select>
+                    <div class="manual-entry-toggle">
+                        <span class="toggle-link" onclick="toggleManualEntry('parish')">Not in list? Type manually</span>
+                    </div>
+                    <input type="text" id="parishManual" placeholder="Type Parish manually" class="small-input" style="display: none;">
                 </div>
             </div>
             
             <div class="property-fields full-width">
                 <div class="field-group">
-                    <label for="village">Village</label>
-                    <input type="text" id="village" placeholder="Enter Village" class="small-input">
+                    <label for="village" class="required">Village</label>
+                    <select id="village" class="small-input" disabled>
+                        <option value="">Select Village</option>
+                    </select>
+                    <div class="manual-entry-toggle">
+                        <span class="toggle-link" onclick="toggleManualEntry('village')">Not in list? Type manually</span>
+                    </div>
+                    <input type="text" id="villageManual" placeholder="Type Village manually" class="small-input" style="display: none;">
                 </div>
             </div>
             
-            <div class="section-title">Location & Valuation</div>
+            <div class="property-fields full-width">
+                <div class="field-group">
+                    <label for="description" class="optional">Description/Remarks</label>
+                    <textarea id="description" placeholder="Enter any remarks or description about the property" rows="3" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: white; color: var(--text-primary); font-size: 0.9rem; resize: vertical;"></textarea>
+                </div>
+            </div>
+            
+            <div class="property-fields full-width">
+                <div class="field-group">
+                    <label for="dataSource" class="required">Data Source</label>
+                    <select id="dataSource" class="small-input">
+                        <option value="">Select Data Source</option>
+                        <option value="Field Survey">Field Survey</option>
+                        <option value="Land Registry">Land Registry</option>
+                        <option value="Local Government">Local Government</option>
+                        <option value="Property Owner">Property Owner</option>
+                        <option value="Real Estate Agent">Real Estate Agent</option>
+                        <option value="Community Leader">Community Leader</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="section-title">
+                <i class="fa-solid fa-chart-line"></i> Location & Valuation
+            </div>
             
             <div class="location-toggle">
                 <button id="gpsToggle" class="active" onclick="setLocationMode('gps')">
@@ -1005,24 +1339,24 @@
             </div>
             
             <div class="gps-status">
-                <i class="fa-solid fa-satellite" id="gpsIcon"></i>
+                <i class="fa-solid fa-satellite" id="gpsIcon" style="color: var(--accent); font-size: 1.2rem;"></i>
                 <div style="flex-grow: 1;">
-                    <div style="display: flex; justify-content: space-between; font-size: 0.7rem;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 500;">
                         <span id="gpsStatusText">Acquiring GPS...</span>
-                        <span id="gpsAccuracy">-- m</span>
+                        <span id="gpsAccuracy" style="color: var(--primary);">-- m</span>
                     </div>
                     <div class="gps-accuracy-bar">
                         <div id="gpsAccuracyFill" class="gps-accuracy-fill" style="width: 0%; background: #e74c3c;"></div>
                     </div>
                     <div class="gps-status-text" id="gpsStatusDetail">
-                        Need 3-15m accuracy to save data
+                        Need 3-20m accuracy to save data
                     </div>
                 </div>
             </div>
             
             <div id="coordinates">Waiting for GPS...</div>
             
-            <div style="margin: 10px 0;">
+            <div style="margin: 15px 0;">
                 <button onclick="clearManualPoint()" class="secondary" style="width: 100%;" id="clearPointBtn" disabled>
                     <i class="fa-solid fa-trash"></i> Clear Selected Point
                 </button>
@@ -1030,17 +1364,17 @@
             
             <div class="property-fields">
                 <div class="field-group">
-                    <label for="price">Total Price ($)</label>
+                    <label for="price" class="required">Total Price (Ugx)</label>
                     <input type="number" id="price" placeholder="Total Price" step="0.01">
                 </div>
                 <div class="field-group">
-                    <label for="size">Size (Ha)</label>
+                    <label for="size" class="required">Size (Ha)</label>
                     <input type="number" id="size" placeholder="Size (Ha)" step="0.01">
                 </div>
             </div>
             
             <div class="field-group">
-                <label for="use">Land Use</label>
+                <label for="use" class="required">Land Use</label>
                 <select id="use">
                     <option value="">Select Land Use</option>
                     <option>Residential</option>
@@ -1055,7 +1389,9 @@
                 </select>
             </div>
             
-            <div class="section-title">Evidence</div>
+            <div class="section-title">
+                <i class="fa-solid fa-camera"></i> Evidence
+            </div>
             
             <div class="evidence-container">
                 <button class="camera-btn" onclick="capturePhoto()">
@@ -1063,12 +1399,23 @@
                 </button>
                 <input type="file" id="photoInput" accept="image/*" capture="environment" style="display: none;" onchange="handlePhotoUpload(event)">
                 <img id="imagePreview" class="image-preview" alt="Evidence Preview">
-                <button id="removePhotoBtn" class="warning" onclick="removePhoto()" style="display: none; width: 100%;">
+                <button id="removePhotoBtn" class="warning" onclick="removePhoto()" style="display: none; width: 100%; margin-top: 10px;">
                     <i class="fa-solid fa-trash"></i> Remove Photo
                 </button>
             </div>
             
-            <button id="saveBtn" onclick="saveData()" class="success" style="width: 100%; margin-top: 10px;" disabled>
+            <div class="section-title">
+                <i class="fa-solid fa-user-tie"></i> Data Collector Information
+            </div>
+            
+            <div class="property-fields full-width">
+                <div class="field-group">
+                    <label for="officerName" class="required">Name of Officer (Data Collector)</label>
+                    <input type="text" id="officerName" placeholder="Enter your full name">
+                </div>
+            </div>
+            
+            <button id="saveBtn" onclick="saveData()" class="success" style="width: 100%; margin-top: 15px; padding: 14px;" disabled>
                 <i class="fa-solid fa-save"></i> SAVE PROPERTY RECORD
             </button>
         </div>
@@ -1076,7 +1423,7 @@
         <div class="panel">
             <h3><i class="fa-solid fa-database"></i> Local Storage Status</h3>
             <div class="storage-status">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-weight: 500;">
                     <span>Data Usage</span>
                     <span id="recordCount">0 records</span>
                 </div>
@@ -1096,7 +1443,7 @@
                     <i class="fa-solid fa-upload"></i> Restore
                 </button>
             </div>
-            <button onclick="clearAllData()" class="warning" style="width: 100%; margin-top: 10px;">
+            <button onclick="clearAllData()" class="warning" style="width: 100%; margin-top: 15px;">
                 <i class="fa-solid fa-trash"></i> Clear All Data
             </button>
         </div>
@@ -1107,6 +1454,7 @@
                     <tr>
                         <th>Property ID</th>
                         <th>Name</th>
+                        <th>Plot No.</th>
                         <th>Rate/Ha</th>
                         <th>Actions</th>
                     </tr>
@@ -1117,8 +1465,8 @@
         
         <div class="log-container">
             <div class="log-header">
-                <h4 style="margin: 0;"><i class="fa-solid fa-clipboard-list"></i> Activity Log</h4>
-                <button onclick="clearLog()" class="secondary" style="padding: 4px 8px; font-size: 0.7rem;">
+                <h4 style="margin: 0; font-size: 1rem;"><i class="fa-solid fa-clipboard-list"></i> Activity Log</h4>
+                <button onclick="clearLog()" class="secondary" style="padding: 6px 10px; font-size: 0.8rem;">
                     <i class="fa-solid fa-trash"></i> Clear
                 </button>
             </div>
@@ -1132,12 +1480,12 @@
             <div class="preview-grid" id="previewContent">
                 <!-- Preview content will be injected here -->
             </div>
-            <button onclick="hidePreview()" class="secondary" style="width: 100%; margin-top: 10px;">
+            <button onclick="hidePreview()" class="secondary" style="width: 100%; margin-top: 15px;">
                 <i class="fa-solid fa-times"></i> Close Preview
             </button>
         </div>
         
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px;">
             <button onclick="exportData()" class="success">
                 <i class="fa-solid fa-file-excel"></i> Export Excel
             </button>
@@ -1150,7 +1498,7 @@
     <div id="map"></div>
 
     <div class="gps-accuracy-threshold" id="accuracyThreshold">
-        <i class="fa-solid fa-bullseye"></i> GPS Accuracy: 3-15m required
+        <i class="fa-solid fa-bullseye"></i> GPS Accuracy: 3-20m required
     </div>
 
     <div class="auto-center-control">
@@ -1172,7 +1520,7 @@
     <div id="backupModal" class="modal-overlay">
         <div class="modal">
             <h3><i class="fa-solid fa-download"></i> Data Backup</h3>
-            <p style="font-size: 0.85rem; color: #bdc3c7;">Backup your data to a file for safekeeping or transfer to another device.</p>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">Backup your data to a file for safekeeping or transfer to another device.</p>
             
             <div class="data-backup">
                 <button onclick="backupData('json')" class="info">
@@ -1184,8 +1532,8 @@
             </div>
             
             <div style="margin-top: 20px;">
-                <h4><i class="fa-solid fa-file-export"></i> Export Formats</h4>
-                <div style="font-size: 0.8rem; color: #bdc3c7;">
+                <h4 style="font-size: 1rem;"><i class="fa-solid fa-file-export"></i> Export Formats</h4>
+                <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">
                     <p><strong>JSON</strong>: Full data including photos (base64 encoded)</p>
                     <p><strong>CSV</strong>: Tabular data only (photos excluded)</p>
                 </div>
@@ -1201,18 +1549,20 @@
     <div id="restoreModal" class="modal-overlay">
         <div class="modal">
             <h3><i class="fa-solid fa-upload"></i> Data Restore</h3>
-            <p style="font-size: 0.85rem; color: #bdc3c7;">Restore data from a previously created backup file.</p>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">Restore data from a previously created backup file.</p>
             
             <div style="margin: 20px 0;">
-                <input type="file" id="restoreFile" accept=".json,.csv" style="width: 100%; padding: 10px; background: #2c3e50; border-radius: 4px; color: white;">
-                <button onclick="restoreData()" class="success" style="width: 100%; margin-top: 10px;">
+                <input type="file" id="restoreFile" accept=".json,.csv" style="width: 100%; padding: 12px; background: white; border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-size: 0.9rem;">
+                <button onclick="restoreData()" class="success" style="width: 100%; margin-top: 15px;">
                     <i class="fa-solid fa-upload"></i> Restore Data
                 </button>
             </div>
             
-            <div style="background: #2c3e50; padding: 10px; border-radius: 4px; margin-top: 15px;">
-                <h4 style="margin: 0 0 10px 0; font-size: 0.9rem;"><i class="fa-solid fa-triangle-exclamation"></i> Warning</h4>
-                <p style="font-size: 0.8rem; color: #bdc3c7; margin: 0;">
+            <div style="background: #fef9e7; padding: 15px; border-radius: 8px; margin-top: 15px; border: 1px solid #fcf3cf;">
+                <h4 style="margin: 0 0 10px 0; font-size: 0.9rem; color: #f39c12;">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Warning
+                </h4>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0; line-height: 1.5;">
                     Restoring data will replace all existing records. Make sure you have a current backup before proceeding.
                 </p>
             </div>
@@ -1240,6 +1590,7 @@
     let manualLayer = null;
     let accuracyLayer = null;
     let locationMode = 'gps';
+    let registrationType = 'titled';
     let currentPos = null;
     let currentAccuracy = null;
     let manualPos = null;
@@ -1252,6 +1603,420 @@
     let logger = null;
     let storageManager = null;
     let satellite = null;
+    let propertyIdCounter = 1;
+    
+    // ==============================================
+    // EMBEDDED GEOGRAPHICAL DATA FROM JSON
+    // ==============================================
+    const geographicalData = [
+        {
+            "DISTRICT\/CITY": "HOIMA",
+            "SUBCOUNTY": "01 BUHANIKA",
+            "PARISH": "01 KATEREIGA",
+            "VILLAGES": "01 KASAMBYA I"
+        },
+        {
+            "DISTRICT\/CITY": "HOIMA",
+            "SUBCOUNTY": "01 BUHANIKA",
+            "PARISH": "01 KATEREIGA",
+            "VILLAGES": "02 KATEREIGA  I"
+        },
+        {
+            "DISTRICT\/CITY": "HOIMA",
+            "SUBCOUNTY": "01 BUHANIKA",
+            "PARISH": "01 KATEREIGA",
+            "VILLAGES": "03 KATEREIGA  II"
+        },
+        {
+            "DISTRICT\/CITY": "HOIMA",
+            "SUBCOUNTY": "01 BUHANIKA",
+            "PARISH": "01 KATEREIGA",
+            "VILLAGES": "04 KASAMBYA II"
+        },
+        {
+            "DISTRICT\/CITY": "HOIMA",
+            "SUBCOUNTY": "01 BUHANIKA",
+            "PARISH": "01 KATEREIGA",
+            "VILLAGES": "05 KISUGA"
+        },
+        {
+            "DISTRICT\/CITY": "HOIMA",
+            "SUBCOUNTY": "01 BUHANIKA",
+            "PARISH": "01 KATEREIGA",
+            "VILLAGES": "06 KIKABURA"
+        },
+        {
+            "DISTRICT\/CITY": "HOIMA",
+            "SUBCOUNTY": "01 BUHANIKA",
+            "PARISH": "02 KIKEREGE",
+            "VILLAGES": "01 KYOMUJUNGU"
+        },
+        {
+            "DISTRICT\/CITY": "HOIMA",
+            "SUBCOUNTY": "01 BUHANIKA",
+            "PARISH": "02 KIKEREGE",
+            "VILLAGES": "06 KIGONA"
+        },
+        {
+            "DISTRICT\/CITY": "HOIMA",
+            "SUBCOUNTY": "01 BUHANIKA",
+            "PARISH": "02 KIKEREGE",
+            "VILLAGES": "07 KIHENDA"
+        },
+        {
+            "DISTRICT\/CITY": "HOIMA",
+            "SUBCOUNTY": "01 BUHANIKA",
+            "PARISH": "02 KIKEREGE",
+            "VILLAGES": "10 KIKEREGE"
+        },
+        {
+            "DISTRICT\/CITY": "HOIMA",
+            "SUBCOUNTY": "01 BUHANIKA",
+            "PARISH": "02 KIKEREGE",
+            "VILLAGES": "11 KYAMUGENZI"
+        },
+        {
+            "DISTRICT\/CITY": "HOIMA",
+            "SUBCOUNTY": "01 BUHANIKA",
+            "PARISH": "03 BUTEMA",
+            "VILLAGES": "02 KIFURANSA"
+        },
+        {
+            "DISTRICT\/CITY": "HOIMA",
+            "SUBCOUNTY": "01 BUHANIKA",
+            "PARISH": "03 BUTEMA",
+            "VILLAGES": "04 KIFUMURA  I"
+        },
+        {
+            "DISTRICT\/CITY": "HOIMA",
+            "SUBCOUNTY": "01 BUHANIKA",
+            "PARISH": "03 BUTEMA",
+            "VILLAGES": "05 KIKONKO"
+        },
+        {
+            "DISTRICT\/CITY": "HOIMA",
+            "SUBCOUNTY": "01 BUHANIKA",
+            "PARISH": "03 BUTEMA",
+            "VILLAGES": "08 KIHUURA  I"
+        },
+        {
+            "DISTRICT\/CITY": "HOIMA",
+            "SUBCOUNTY": "01 BUHANIKA",
+            "PARISH": "03 BUTEMA",
+            "VILLAGES": "09 KIHUURA  II"
+        },
+        {
+            "DISTRICT\/CITY": "HOIMA",
+            "SUBCOUNTY": "01 BUHANIKA",
+            "PARISH": "04 KITOONYA",
+            "VILLAGES": "01 KYAMIRANSIMBI"
+        },
+        {
+            "DISTRICT\/CITY": "HOIMA",
+            "SUBCOUNTY": "01 BUHANIKA",
+            "PARISH": "04 KITOONYA",
+            "VILLAGES": "02 KYAMUZIZI"
+        },
+        {
+            "DISTRICT\/CITY": "HOIMA",
+            "SUBCOUNTY": "01 BUHANIKA",
+            "PARISH": "04 KITOONYA",
+            "VILLAGES": "03 KIDUKURU"
+        },
+        {
+            "DISTRICT\/CITY": "HOIMA",
+            "SUBCOUNTY": "01 BUHANIKA",
+            "PARISH": "04 KITOONYA",
+            "VILLAGES": "06 KITOONYA  I"
+        },
+        {
+            "DISTRICT\/CITY": "HOIMA",
+            "SUBCOUNTY": "01 BUHANIKA",
+            "PARISH": "04 KITOONYA",
+            "VILLAGES": "07 KITOONYA  II"
+        }
+    ];
+    
+    // Extract unique values from the geographical data
+    const districts = [...new Set(geographicalData.map(item => item["DISTRICT/CITY"]))];
+    
+    // Function to get subcounties for a district
+    function getSubcountiesForDistrict(district) {
+        return [...new Set(geographicalData
+            .filter(item => item["DISTRICT/CITY"] === district)
+            .map(item => item.SUBCOUNTY)
+            .sort())];
+    }
+    
+    // Function to get parishes for a subcounty
+    function getParishesForSubcounty(district, subcounty) {
+        return [...new Set(geographicalData
+            .filter(item => item["DISTRICT/CITY"] === district && item.SUBCOUNTY === subcounty)
+            .map(item => item.PARISH)
+            .sort())];
+    }
+    
+    // Function to get villages for a parish
+    function getVillagesForParish(district, subcounty, parish) {
+        return [...new Set(geographicalData
+            .filter(item => item["DISTRICT/CITY"] === district && 
+                           item.SUBCOUNTY === subcounty && 
+                           item.PARISH === parish)
+            .map(item => item.VILLAGES)
+            .sort())];
+    }
+    
+    // ==============================================
+    // GEOGRAPHICAL DATA DROPDOWN FUNCTIONS
+    // ==============================================
+    function initializeGeographicalDropdowns() {
+        const districtSelect = document.getElementById('districtCity');
+        const subcountySelect = document.getElementById('subcounty');
+        const parishSelect = document.getElementById('parish');
+        const villageSelect = document.getElementById('village');
+        
+        // Clear existing options
+        districtSelect.innerHTML = '<option value="">Select District/City</option>';
+        subcountySelect.innerHTML = '<option value="">Select Subcounty</option>';
+        parishSelect.innerHTML = '<option value="">Select Parish</option>';
+        villageSelect.innerHTML = '<option value="">Select Village</option>';
+        
+        // Populate districts
+        districts.forEach(district => {
+            const option = document.createElement('option');
+            option.value = district;
+            option.textContent = district;
+            districtSelect.appendChild(option);
+        });
+        
+        // Disable dependent dropdowns initially
+        subcountySelect.disabled = true;
+        parishSelect.disabled = true;
+        villageSelect.disabled = true;
+    }
+    
+    function updateSubcounties() {
+        const districtSelect = document.getElementById('districtCity');
+        const subcountySelect = document.getElementById('subcounty');
+        const parishSelect = document.getElementById('parish');
+        const villageSelect = document.getElementById('village');
+        
+        const selectedDistrict = districtSelect.value;
+        
+        if (!selectedDistrict) {
+            subcountySelect.disabled = true;
+            parishSelect.disabled = true;
+            villageSelect.disabled = true;
+            
+            subcountySelect.innerHTML = '<option value="">Select Subcounty</option>';
+            parishSelect.innerHTML = '<option value="">Select Parish</option>';
+            villageSelect.innerHTML = '<option value="">Select Village</option>';
+            return;
+        }
+        
+        // Enable subcounty dropdown
+        subcountySelect.disabled = false;
+        
+        // Clear and populate subcounties
+        subcountySelect.innerHTML = '<option value="">Select Subcounty</option>';
+        const subcounties = getSubcountiesForDistrict(selectedDistrict);
+        
+        subcounties.forEach(subcounty => {
+            const option = document.createElement('option');
+            option.value = subcounty;
+            option.textContent = subcounty;
+            subcountySelect.appendChild(option);
+        });
+        
+        // Clear parish and village dropdowns
+        parishSelect.disabled = true;
+        villageSelect.disabled = true;
+        parishSelect.innerHTML = '<option value="">Select Parish</option>';
+        villageSelect.innerHTML = '<option value="">Select Village</option>';
+    }
+    
+    function updateParishes() {
+        const districtSelect = document.getElementById('districtCity');
+        const subcountySelect = document.getElementById('subcounty');
+        const parishSelect = document.getElementById('parish');
+        const villageSelect = document.getElementById('village');
+        
+        const selectedDistrict = districtSelect.value;
+        const selectedSubcounty = subcountySelect.value;
+        
+        if (!selectedDistrict || !selectedSubcounty) {
+            parishSelect.disabled = true;
+            villageSelect.disabled = true;
+            
+            parishSelect.innerHTML = '<option value="">Select Parish</option>';
+            villageSelect.innerHTML = '<option value="">Select Village</option>';
+            return;
+        }
+        
+        // Enable parish dropdown
+        parishSelect.disabled = false;
+        
+        // Clear and populate parishes
+        parishSelect.innerHTML = '<option value="">Select Parish</option>';
+        const parishes = getParishesForSubcounty(selectedDistrict, selectedSubcounty);
+        
+        parishes.forEach(parish => {
+            const option = document.createElement('option');
+            option.value = parish;
+            option.textContent = parish;
+            parishSelect.appendChild(option);
+        });
+        
+        // Clear village dropdown
+        villageSelect.disabled = true;
+        villageSelect.innerHTML = '<option value="">Select Village</option>';
+    }
+    
+    function updateVillages() {
+        const districtSelect = document.getElementById('districtCity');
+        const subcountySelect = document.getElementById('subcounty');
+        const parishSelect = document.getElementById('parish');
+        const villageSelect = document.getElementById('village');
+        
+        const selectedDistrict = districtSelect.value;
+        const selectedSubcounty = subcountySelect.value;
+        const selectedParish = parishSelect.value;
+        
+        if (!selectedDistrict || !selectedSubcounty || !selectedParish) {
+            villageSelect.disabled = true;
+            villageSelect.innerHTML = '<option value="">Select Village</option>';
+            return;
+        }
+        
+        // Enable village dropdown
+        villageSelect.disabled = false;
+        
+        // Clear and populate villages
+        villageSelect.innerHTML = '<option value="">Select Village</option>';
+        const villages = getVillagesForParish(selectedDistrict, selectedSubcounty, selectedParish);
+        
+        villages.forEach(village => {
+            const option = document.createElement('option');
+            option.value = village;
+            option.textContent = village;
+            villageSelect.appendChild(option);
+        });
+    }
+
+    // ==============================================
+    // REGISTRATION TYPE FUNCTIONS
+    // ==============================================
+    function setRegistrationType(type) {
+        registrationType = type;
+        
+        // Update toggle buttons
+        document.getElementById('titledToggle').classList.toggle('active', type === 'titled');
+        document.getElementById('untitledToggle').classList.toggle('active', type === 'untitled');
+        
+        // Enable/disable title fields
+        const titleFields = document.getElementById('titleFields');
+        const plotNumberInput = document.getElementById('plotNumber');
+        const blockNumberInput = document.getElementById('blockNumber');
+        
+        if (type === 'titled') {
+            titleFields.style.display = 'grid';
+            plotNumberInput.disabled = false;
+            blockNumberInput.disabled = false;
+            plotNumberInput.required = true;
+            blockNumberInput.required = true;
+        } else {
+            titleFields.style.display = 'none';
+            plotNumberInput.disabled = true;
+            blockNumberInput.disabled = true;
+            plotNumberInput.required = false;
+            blockNumberInput.required = false;
+            plotNumberInput.value = '';
+            blockNumberInput.value = '';
+        }
+        
+        logger.addLogEntry(`Registration type set to: ${type}`, "info");
+    }
+    
+    // ==============================================
+    // MANUAL ENTRY TOGGLE FUNCTIONS
+    // ==============================================
+    function toggleManualEntry(fieldType) {
+        const selectElement = document.getElementById(fieldType);
+        const manualInput = document.getElementById(fieldType + 'Manual');
+        
+        if (selectElement.style.display === 'none') {
+            // Switch back to dropdown
+            selectElement.style.display = 'block';
+            manualInput.style.display = 'none';
+            selectElement.disabled = false;
+            
+            // Clear manual input
+            manualInput.value = '';
+            
+            // Update dependent dropdowns
+            if (fieldType === 'districtCity') {
+                updateSubcounties();
+            } else if (fieldType === 'subcounty') {
+                updateParishes();
+            } else if (fieldType === 'parish') {
+                updateVillages();
+            }
+        } else {
+            // Switch to manual input
+            selectElement.style.display = 'none';
+            manualInput.style.display = 'block';
+            selectElement.disabled = true;
+            
+            // Clear dropdown selection
+            selectElement.value = '';
+            
+            // Update dependent dropdowns
+            if (fieldType === 'districtCity') {
+                document.getElementById('subcounty').disabled = true;
+                document.getElementById('subcounty').value = '';
+                document.getElementById('parish').disabled = true;
+                document.getElementById('parish').value = '';
+                document.getElementById('village').disabled = true;
+                document.getElementById('village').value = '';
+            } else if (fieldType === 'subcounty') {
+                document.getElementById('parish').disabled = true;
+                document.getElementById('parish').value = '';
+                document.getElementById('village').disabled = true;
+                document.getElementById('village').value = '';
+            } else if (fieldType === 'parish') {
+                document.getElementById('village').disabled = true;
+                document.getElementById('village').value = '';
+            }
+        }
+    }
+    
+    // ==============================================
+    // PROPERTY ID GENERATION
+    // ==============================================
+    function generatePropertyId() {
+        // Get the highest property ID from existing records
+        const db = JSON.parse(localStorage.getItem('lavmis_pro_db') || '[]');
+        let maxId = 0;
+        
+        db.forEach(record => {
+            // Extract numeric part from Property ID (assuming format like PRO-001, PRO-123, etc.)
+            const idMatch = record.propertyId.match(/PRO-(\d+)/);
+            if (idMatch) {
+                const idNum = parseInt(idMatch[1]);
+                if (idNum > maxId) {
+                    maxId = idNum;
+                }
+            }
+        });
+        
+        // Start from maxId + 1, or 1 if no records exist
+        propertyIdCounter = maxId + 1;
+        
+        // Generate new ID
+        const newId = `PRO-${propertyIdCounter.toString().padStart(3, '0')}`;
+        document.getElementById('propertyId').value = newId;
+        propertyIdCounter++;
+    }
 
     // ==============================================
     // LOGIN SYSTEM
@@ -1892,13 +2657,17 @@
                 // Create CSV without evidence photos
                 const csvData = db.map(record => ({
                     'Property ID': record.propertyId,
-                    'Property Name': record.propertyName,
-                    'District': record.district,
-                    'County': record.county,
-                    'Subcounty': record.subcounty,
-                    'Parish': record.parish,
-                    'Village': record.village,
+                    'Property Name': record.propertyName || '',
+                    'Registration Type': record.registrationType || '',
+                    'Plot Number': record.plotNumber || '',
+                    'Block Number': record.blockNumber || '',
+                    'District/City': record.districtCity || record.district || '',
+                    'Subcounty': record.subcounty || '',
+                    'Parish': record.parish || '',
+                    'Village': record.village || '',
+                    'Description': record.description || '',
                     'Date': record.formattedDate,
+                    'Data Source': record.dataSource || '',
                     'Land Use': record.landUse,
                     'Price ($)': record.price,
                     'Size (Ha)': record.size,
@@ -1907,6 +2676,7 @@
                     'Longitude': record.longitude,
                     'GPS Accuracy (m)': record.gpsAccuracy || 'N/A',
                     'Location Source': record.positionSource,
+                    'Officer Name': record.officerName || '',
                     'Has Evidence': record.evidence ? 'Yes' : 'No'
                 }));
                 
@@ -1978,11 +2748,16 @@
                             formattedDate: row.Date || new Date().toLocaleDateString(),
                             propertyId: row['Property ID'] || '',
                             propertyName: row['Property Name'] || '',
-                            district: row.District || '',
-                            county: row.County || '',
+                            registrationType: row['Registration Type'] || 'titled',
+                            plotNumber: row['Plot Number'] || '',
+                            blockNumber: row['Block Number'] || '',
+                            districtCity: row['District/City'] || '',
+                            district: row['District/City'] || '', // For backward compatibility
                             subcounty: row.Subcounty || '',
                             parish: row.Parish || '',
                             village: row.Village || '',
+                            description: row.Description || '',
+                            dataSource: row['Data Source'] || '',
                             landUse: row['Land Use'] || 'Unknown',
                             price: parseFloat(row['Price ($)']) || 0,
                             size: parseFloat(row['Size (Ha)']) || 0,
@@ -1993,7 +2768,8 @@
                             evidence: null,
                             locationMode: 'imported',
                             positionSource: row['Location Source'] || 'CSV Import',
-                            gpsAccuracy: row['GPS Accuracy (m)'] || null
+                            gpsAccuracy: row['GPS Accuracy (m)'] || null,
+                            officerName: row['Officer Name'] || ''
                         }));
                         
                         localStorage.setItem('lavmis_pro_db', JSON.stringify(restoredRecords));
@@ -2079,7 +2855,7 @@
             modal.innerHTML = `
                 <div class="modal danger-modal">
                     <h3><i class="fa-solid fa-triangle-exclamation"></i> ${title}</h3>
-                    <p style="margin: 20px 0; font-size: 0.9rem; line-height: 1.5; color: #ecf0f1;">${message}</p>
+                    <p style="margin: 20px 0; font-size: 0.9rem; line-height: 1.5; color: #2c3e50;">${message}</p>
                     
                     <div class="field-group" style="margin: 20px 0;">
                         <label for="confirmationInput">Type <span style="color: #e74c3c; font-weight: bold;">DELETE ALL</span> to confirm:</label>
@@ -2170,31 +2946,40 @@
             cacheMaxAge: 604800000
         }).addTo(map);
         
-        // 3. Initialize logger
+        // 3. Initialize geographical dropdowns
+        initializeGeographicalDropdowns();
+        
+        // 4. Generate initial Property ID
+        generatePropertyId();
+        
+        // 5. Initialize logger
         logger = new Logger();
         logger.addLogEntry("LAVMIS Pro application started", "success");
         
-        // 4. Initialize storage manager
+        // 6. Initialize storage manager
         storageManager = new StorageManager();
         
-        // 5. Load saved data
+        // 7. Load saved data
         let db = JSON.parse(localStorage.getItem('lavmis_pro_db') || '[]');
         db.forEach(plotPoint);
         updateTable();
         
-        // 6. Initialize location mode
+        // 8. Initialize registration type
+        setRegistrationType('titled');
+        
+        // 9. Initialize location mode
         setLocationMode('gps');
         
-        // 7. Start GPS tracking
+        // 10. Start GPS tracking
         startGPS();
         
-        // 8. Initialize auto-center button
+        // 11. Initialize auto-center button
         document.getElementById('autoCenterToggle').classList.add('active');
         
-        // 9. Update storage display
+        // 12. Update storage display
         storageManager.updateStorageDisplay();
         
-        // 10. Setup map click handler
+        // 13. Setup map click handler
         map.on('click', function(e) {
             if (locationMode === 'manual' && isManualModeActive) {
                 manualPos = [e.latlng.lat, e.latlng.lng];
@@ -2459,7 +3244,7 @@
         accuracyFill.style.width = `${accuracyPercent}%`;
         
         // Determine color based on accuracy
-        if (accuracy >= 3 && accuracy <= 15) {
+        if (accuracy >= 3 && accuracy <= 20) {
             // Good accuracy (green)
             accuracyFill.style.background = '#27ae60';
             gpsIcon.className = 'fa-solid fa-satellite';
@@ -2579,7 +3364,7 @@
             logger.addLogEntry("Switched to manual point selection mode", "info");
         } else {
             // GPS mode: button enabled only when accuracy is good
-            saveBtn.disabled = !(currentAccuracy && currentAccuracy >= 3 && currentAccuracy <= 15);
+            saveBtn.disabled = !(currentAccuracy && currentAccuracy >= 3 && currentAccuracy <= 20);
             if (!saveBtn.disabled) {
                 saveBtn.innerHTML = '<i class="fa-solid fa-save"></i> SAVE PROPERTY RECORD';
             }
@@ -2618,13 +3403,13 @@
         const coordDisplay = document.getElementById('coordinates');
         
         if (lat !== null && lng !== null) {
-            let html = `<div><i class="fa-solid fa-map-pin"></i> ${source}</div>
-                <div style="color: #27ae60; font-weight: bold; margin-top: 3px;">
+            let html = `<div style="font-weight: 600; color: var(--primary);"><i class="fa-solid fa-map-pin"></i> ${source}</div>
+                <div style="color: #27ae60; font-weight: bold; margin-top: 6px; font-size: 0.9rem;">
                     ${lat.toFixed(6)}, ${lng.toFixed(6)}
                 </div>`;
             
             if (accuracy !== null) {
-                html += `<div style="font-size: 0.6rem; color: ${getAccuracyColor(accuracy)}; margin-top: 2px;">
+                html += `<div style="font-size: 0.75rem; color: ${getAccuracyColor(accuracy)}; margin-top: 4px; font-weight: 500;">
                     Accuracy: ${accuracy.toFixed(1)}m
                 </div>`;
             }
@@ -2632,8 +3417,8 @@
             coordDisplay.innerHTML = html;
         } else {
             coordDisplay.innerHTML = `
-                <div><i class="fa-solid fa-info-circle"></i> ${source || 'Waiting for location...'}</div>
-                <div style="font-size: 0.6rem; color: #95a5a6; margin-top: 2px;">
+                <div style="font-weight: 600; color: var(--primary);"><i class="fa-solid fa-info-circle"></i> ${source || 'Waiting for location...'}</div>
+                <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 6px;">
                     ${locationMode === 'gps' ? 'Waiting for GPS signal' : 'Click on map to select a point'}
                 </div>
             `;
@@ -2641,7 +3426,7 @@
     }
     
     function getAccuracyColor(accuracy) {
-        if (accuracy >= 3 && accuracy <= 15) return '#27ae60';
+        if (accuracy >= 3 && accuracy <= 20) return '#27ae60';
         if (accuracy < 3) return '#f39c12';
         if (accuracy <= 30) return '#f39c12';
         return '#e74c3c';
@@ -2692,8 +3477,8 @@
             }
             
             // Validate GPS accuracy
-            if (!currentAccuracy || currentAccuracy < 3 || currentAccuracy > 15) {
-                alert(`GPS accuracy (${currentAccuracy ? currentAccuracy.toFixed(1) : 'unknown'}m) is outside required range (3-15m).\n\nPlease move to an open area and wait for better GPS accuracy.`);
+            if (!currentAccuracy || currentAccuracy < 3 || currentAccuracy > 20) {
+                alert(`GPS accuracy (${currentAccuracy ? currentAccuracy.toFixed(1) : 'unknown'}m) is outside required range (3-20m).\n\nPlease move to an open area and wait for better GPS accuracy.`);
                 return;
             }
             
@@ -2709,30 +3494,62 @@
             positionSource = 'Manual Selection';
         }
 
+        // Get manual entry values if used
+        const districtCity = document.getElementById('districtCityManual').style.display === 'block' 
+            ? document.getElementById('districtCityManual').value.trim()
+            : document.getElementById('districtCity').value.trim();
+        
+        const subcounty = document.getElementById('subcountyManual').style.display === 'block'
+            ? document.getElementById('subcountyManual').value.trim()
+            : document.getElementById('subcounty').value.trim();
+        
+        const parish = document.getElementById('parishManual').style.display === 'block'
+            ? document.getElementById('parishManual').value.trim()
+            : document.getElementById('parish').value.trim();
+        
+        const village = document.getElementById('villageManual').style.display === 'block'
+            ? document.getElementById('villageManual').value.trim()
+            : document.getElementById('village').value.trim();
+
         // Validate required fields
         const propertyId = document.getElementById('propertyId').value.trim();
         const propertyName = document.getElementById('propertyName').value.trim();
-        const district = document.getElementById('district').value.trim();
-        const county = document.getElementById('county').value.trim();
-        const subcounty = document.getElementById('subcounty').value.trim();
-        const parish = document.getElementById('parish').value.trim();
-        const village = document.getElementById('village').value.trim();
+        const plotNumber = document.getElementById('plotNumber').value.trim();
+        const blockNumber = document.getElementById('blockNumber').value.trim();
+        const description = document.getElementById('description').value.trim();
+        const dataSource = document.getElementById('dataSource').value.trim();
         const price = parseFloat(document.getElementById('price').value);
         const size = parseFloat(document.getElementById('size').value);
         const landUse = document.getElementById('use').value;
+        const officerName = document.getElementById('officerName').value.trim();
         
         if (!propertyId) {
-            alert("Please enter Property ID.");
+            alert("Please generate Property ID.");
             return;
         }
         
-        if (!propertyName) {
-            alert("Please enter Property Name.");
+        if (!districtCity) {
+            alert("Please select or enter District/City.");
             return;
         }
         
-        if (!district) {
-            alert("Please enter District.");
+        if (!subcounty) {
+            alert("Please select or enter Subcounty.");
+            return;
+        }
+        
+        if (!parish) {
+            alert("Please select or enter Parish.");
+            return;
+        }
+        
+        if (!village) {
+            alert("Please select or enter Village.");
+            return;
+        }
+        
+        if (!dataSource) {
+            alert("Please select Data Source.");
             return;
         }
         
@@ -2743,6 +3560,17 @@
         
         if (!landUse) {
             alert("Please select Land Use.");
+            return;
+        }
+        
+        if (!officerName) {
+            alert("Please enter the Name of Officer (Data Collector).");
+            return;
+        }
+        
+        // Validate titled properties require plot number
+        if (registrationType === 'titled' && !plotNumber) {
+            alert("For titled properties, Plot Number is required.");
             return;
         }
 
@@ -2758,11 +3586,16 @@
             }),
             propertyId: propertyId,
             propertyName: propertyName,
-            district: district,
-            county: county,
+            registrationType: registrationType,
+            plotNumber: plotNumber,
+            blockNumber: blockNumber,
+            districtCity: districtCity,
+            district: districtCity, // For backward compatibility
             subcounty: subcounty,
             parish: parish,
             village: village,
+            description: description,
+            dataSource: dataSource,
             landUse: landUse,
             price: price,
             size: size,
@@ -2773,7 +3606,8 @@
             evidence: evidencePhoto,
             locationMode: locationMode,
             positionSource: positionSource,
-            gpsAccuracy: accuracy ? accuracy.toFixed(1) : null
+            gpsAccuracy: accuracy ? accuracy.toFixed(1) : null,
+            officerName: officerName
         };
 
         let db = JSON.parse(localStorage.getItem('lavmis_pro_db') || '[]');
@@ -2784,13 +3618,16 @@
         updateTable();
         clearForm();
         
+        // Generate new Property ID for next record
+        generatePropertyId();
+        
         // Clear manual point after saving
         if (locationMode === 'manual') {
             clearManualPoint();
         }
         
         // Log the action
-        const logMessage = `Property record saved: ${record.propertyName} (ID: ${record.propertyId}) - $${record.price} for ${record.size} Ha at ${record.coordinates}`;
+        const logMessage = `Property record saved: ${record.propertyName || 'Unnamed'} (ID: ${record.propertyId}, Plot: ${record.plotNumber || 'Untitled'}) - $${record.price} for ${record.size} Ha at ${record.coordinates}`;
         logger.addLogEntry(logMessage, "success");
         
         // Update storage display
@@ -2798,21 +3635,47 @@
             storageManager.updateStorageDisplay();
         }
         
-        alert(`✅ Property record saved successfully!\n📋 ID: ${record.propertyId}\n🏠 Name: ${record.propertyName}\n📍 Location: ${record.coordinates}\n📏 Accuracy: ${accuracy ? accuracy.toFixed(1) + 'm' : 'Manual'}\n💰 Rate: $${record.rate}/Ha`);
+        alert(`✅ Property record saved successfully!\n📋 ID: ${record.propertyId}\n🏠 Name: ${record.propertyName || 'Not provided'}\n📍 Plot: ${record.plotNumber || 'Untitled'}\n📍 Location: ${record.coordinates}\n📏 Accuracy: ${accuracy ? accuracy.toFixed(1) + 'm' : 'Manual'}\n💰 Rate: $${record.rate}/Ha`);
     }
     
     function clearForm() {
-        document.getElementById('propertyId').value = '';
+        // Don't clear Property ID (it's auto-generated)
         document.getElementById('propertyName').value = '';
-        document.getElementById('district').value = '';
-        document.getElementById('county').value = '';
+        // Don't clear registration type
+        document.getElementById('plotNumber').value = '';
+        document.getElementById('blockNumber').value = '';
+        
+        // Reset geographical dropdowns
+        document.getElementById('districtCity').value = '';
+        document.getElementById('districtCityManual').style.display = 'none';
+        document.getElementById('districtCity').style.display = 'block';
+        document.getElementById('districtCity').disabled = false;
+        
         document.getElementById('subcounty').value = '';
+        document.getElementById('subcountyManual').style.display = 'none';
+        document.getElementById('subcounty').style.display = 'block';
+        document.getElementById('subcounty').disabled = true;
+        
         document.getElementById('parish').value = '';
+        document.getElementById('parishManual').style.display = 'none';
+        document.getElementById('parish').style.display = 'block';
+        document.getElementById('parish').disabled = true;
+        
         document.getElementById('village').value = '';
+        document.getElementById('villageManual').style.display = 'none';
+        document.getElementById('village').style.display = 'block';
+        document.getElementById('village').disabled = true;
+        
+        document.getElementById('description').value = '';
+        document.getElementById('dataSource').selectedIndex = 0;
         document.getElementById('price').value = '';
         document.getElementById('size').value = '';
         document.getElementById('use').selectedIndex = 0;
+        document.getElementById('officerName').value = '';
         removePhoto();
+        
+        // Reset dropdown states
+        updateSubcounties();
     }
 
     // ==============================================
@@ -2839,24 +3702,32 @@
                 iconSize: [24, 24],
                 iconAnchor: [12, 24]
             }),
-            title: `${record.propertyName} - $${record.rate}/Ha`
+            title: `${record.propertyName || 'Property'} - $${record.rate}/Ha`
         }).addTo(savedLayer);
         
         let popupContent = `
             <div style="min-width: 250px;">
                 <h4 style="margin: 0 0 10px 0; color: ${iconColor};">
-                    <i class="fa-solid fa-house"></i> ${record.propertyName}
+                    <i class="fa-solid fa-house"></i> ${record.propertyName || 'Property'}
                 </h4>
                 <p><strong>Property ID:</strong> ${record.propertyId}</p>
+                <p><strong>Registration:</strong> ${record.registrationType || 'titled'}</p>
+                <p><strong>Plot:</strong> ${record.plotNumber || 'N/A'}</p>
+                <p><strong>Block:</strong> ${record.blockNumber || 'N/A'}</p>
                 <p><strong>Location:</strong> ${record.village}, ${record.parish}</p>
+                <p><strong>District/City:</strong> ${record.districtCity}</p>
+                <p><strong>Subcounty:</strong> ${record.subcounty}</p>
+                <p><strong>Data Source:</strong> ${record.dataSource}</p>
                 <p><strong>Land Use:</strong> ${record.landUse}</p>
                 <p><strong>Price:</strong> $${record.price}</p>
                 <p><strong>Size:</strong> ${record.size} Ha</p>
                 <p><strong>Rate:</strong> $${record.rate}/Ha</p>
+                <p><strong>Officer:</strong> ${record.officerName}</p>
                 <p><strong>Date:</strong> ${record.formattedDate}</p>
                 <p><strong>Coordinates:</strong> ${record.coordinates}</p>
                 <p><strong>Source:</strong> ${record.positionSource}</p>
                 ${record.gpsAccuracy ? `<p><strong>GPS Accuracy:</strong> ${record.gpsAccuracy}m</p>` : ''}
+                ${record.description ? `<p><strong>Description:</strong> ${record.description}</p>` : ''}
         `;
         
         if (record.evidence) {
@@ -2920,13 +3791,14 @@
             row.dataset.id = item.id;
             row.innerHTML = `
                 <td>${item.propertyId}</td>
-                <td>${item.propertyName}</td>
+                <td>${item.propertyName || 'Unnamed'}</td>
+                <td>${item.plotNumber || 'N/A'}</td>
                 <td>$${item.rate}</td>
                 <td>
-                    <button onclick="goToLocation(${item.latitude}, ${item.longitude})" title="Go to property location">
+                    <button onclick="goToLocation(${item.latitude}, ${item.longitude})" title="Go to property location" style="padding: 6px; border-radius: 4px;">
                         <i class="fa-solid fa-location-arrow"></i>
                     </button>
-                    <button onclick="showPreview(${item.id})" title="View property details" style="margin-left: 5px;">
+                    <button onclick="showPreview(${item.id})" title="View property details" style="padding: 6px; border-radius: 4px; margin-left: 5px;">
                         <i class="fa-solid fa-eye"></i>
                     </button>
                 </td>
@@ -2958,15 +3830,23 @@
             </div>
             <div class="preview-item">
                 <div class="preview-label">Property Name:</div>
-                <div class="preview-value">${record.propertyName}</div>
+                <div class="preview-value">${record.propertyName || 'Not provided'}</div>
             </div>
             <div class="preview-item">
-                <div class="preview-label">District:</div>
-                <div class="preview-value">${record.district}</div>
+                <div class="preview-label">Registration Type:</div>
+                <div class="preview-value">${record.registrationType || 'titled'}</div>
             </div>
             <div class="preview-item">
-                <div class="preview-label">County:</div>
-                <div class="preview-value">${record.county}</div>
+                <div class="preview-label">Plot Number:</div>
+                <div class="preview-value">${record.plotNumber || 'N/A'}</div>
+            </div>
+            <div class="preview-item">
+                <div class="preview-label">Block Number:</div>
+                <div class="preview-value">${record.blockNumber || 'N/A'}</div>
+            </div>
+            <div class="preview-item">
+                <div class="preview-label">District/City:</div>
+                <div class="preview-value">${record.districtCity}</div>
             </div>
             <div class="preview-item">
                 <div class="preview-label">Subcounty:</div>
@@ -2979,6 +3859,10 @@
             <div class="preview-item">
                 <div class="preview-label">Village:</div>
                 <div class="preview-value">${record.village}</div>
+            </div>
+            <div class="preview-item">
+                <div class="preview-label">Data Source:</div>
+                <div class="preview-value">${record.dataSource}</div>
             </div>
             <div class="preview-item">
                 <div class="preview-label">Land Use:</div>
@@ -3001,6 +3885,10 @@
                 <div class="preview-value">${record.coordinates}</div>
             </div>
             <div class="preview-item">
+                <div class="preview-label">Officer Name:</div>
+                <div class="preview-value">${record.officerName}</div>
+            </div>
+            <div class="preview-item">
                 <div class="preview-label">Date:</div>
                 <div class="preview-value">${record.formattedDate}</div>
             </div>
@@ -3012,6 +3900,12 @@
             <div class="preview-item">
                 <div class="preview-label">GPS Accuracy:</div>
                 <div class="preview-value">${record.gpsAccuracy}m</div>
+            </div>
+            ` : ''}
+            ${record.description ? `
+            <div class="preview-item" style="grid-column: span 2;">
+                <div class="preview-label">Description/Remarks:</div>
+                <div class="preview-value">${record.description}</div>
             </div>
             ` : ''}
             ${record.evidence ? `
@@ -3030,7 +3924,7 @@
         // Center map on record location
         map.setView([record.latitude, record.longitude], 16);
         
-        logger.addLogEntry(`Viewing property record: ${record.propertyName} (ID: ${record.propertyId})`, "info");
+        logger.addLogEntry(`Viewing property record: ${record.propertyName || 'Unnamed'} (ID: ${record.propertyId})`, "info");
     }
     
     function hidePreview() {
@@ -3065,15 +3959,19 @@
         // Prepare data for export with coordinates
         const exportData = db.map(record => ({
             'Property ID': record.propertyId,
-            'Property Name': record.propertyName,
-            'District': record.district,
-            'County': record.county,
-            'Subcounty': record.subcounty,
-            'Parish': record.parish,
-            'Village': record.village,
+            'Property Name': record.propertyName || '',
+            'Registration Type': record.registrationType || '',
+            'Plot Number': record.plotNumber || '',
+            'Block Number': record.blockNumber || '',
+            'District/City': record.districtCity || record.district || '',
+            'Subcounty': record.subcounty || '',
+            'Parish': record.parish || '',
+            'Village': record.village || '',
+            'Description/Remarks': record.description || '',
             'Date': record.formattedDate,
+            'Data Source': record.dataSource || '',
             'Land Use': record.landUse,
-            'Total Price ($)': record.price,
+            'Total Price (Ugx)': record.price,
             'Size (Ha)': record.size,
             'Rate per Ha ($)': record.rate,
             'Latitude': record.latitude,
@@ -3081,6 +3979,7 @@
             'Coordinates': record.coordinates,
             'Location Source': record.positionSource,
             'GPS Accuracy (m)': record.gpsAccuracy || 'N/A',
+            'Officer Name': record.officerName || '',
             'Has Evidence': record.evidence ? 'Yes' : 'No'
         }));
         
@@ -3106,12 +4005,16 @@
                 properties: {
                     id: record.id,
                     propertyId: record.propertyId,
-                    propertyName: record.propertyName,
-                    district: record.district,
-                    county: record.county,
-                    subcounty: record.subcounty,
-                    parish: record.parish,
-                    village: record.village,
+                    propertyName: record.propertyName || '',
+                    registrationType: record.registrationType || '',
+                    plotNumber: record.plotNumber || '',
+                    blockNumber: record.blockNumber || '',
+                    districtCity: record.districtCity || record.district || '',
+                    subcounty: record.subcounty || '',
+                    parish: record.parish || '',
+                    village: record.village || '',
+                    description: record.description || '',
+                    dataSource: record.dataSource || '',
                     date: record.formattedDate,
                     landUse: record.landUse,
                     price: record.price,
@@ -3120,6 +4023,7 @@
                     coordinates: record.coordinates,
                     source: record.positionSource,
                     accuracy: record.gpsAccuracy,
+                    officerName: record.officerName || '',
                     hasEvidence: !!record.evidence
                 }
             }))
