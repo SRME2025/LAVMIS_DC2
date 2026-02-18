@@ -1721,7 +1721,8 @@
                                     <th>Pending</th>
                                     <th>Approved</th>
                                     <th>Rejected</th>
-                                    <th>Avg. Value</th>
+                                    <th>Avg. Value/Ha</th>
+                                    <th>Total Value</th>
                                     <th>Active Staff</th>
                                     <th>Active Districts</th>
                                 </tr>
@@ -1745,7 +1746,7 @@
                                     <th>Pending</th>
                                     <th>Approved</th>
                                     <th>Rejected</th>
-                                    <th>Avg. Value</th>
+                                    <th>Avg. Value/Ha</th>
                                     <th>Total Value</th>
                                     <th>Active Staff</th>
                                     <th>Active Districts</th>
@@ -1770,7 +1771,7 @@
                                     <th>Pending</th>
                                     <th>Approved</th>
                                     <th>Rejected</th>
-                                    <th>Avg. Value</th>
+                                    <th>Avg. Value/Ha</th>
                                     <th>Total Value</th>
                                     <th>Active Staff</th>
                                     <th>Active Districts</th>
@@ -1794,7 +1795,7 @@
                                     <th>Pending</th>
                                     <th>Approved</th>
                                     <th>Rejected</th>
-                                    <th>Avg. Value</th>
+                                    <th>Avg. Value/Ha</th>
                                     <th>Total Value</th>
                                     <th>Active Staff</th>
                                     <th>Active Districts</th>
@@ -2053,7 +2054,7 @@
                                     <th>Approved</th>
                                     <th>Rejected</th>
                                     <th>Approval Rate</th>
-                                    <th>Avg. Value</th>
+                                    <th>Avg. Value/Ha</th>
                                     <th>Total Value</th>
                                 </tr>
                             </thead>
@@ -2713,7 +2714,7 @@
         }
 
         // ============================================
-        // MARKER CALLOUT FUNCTIONS
+        // MARKER CALLOUT FUNCTIONS (UPDATED with Rate per Acre)
         // ============================================
         function createMarkerCallout(recordId, data) {
             const marker = allMarkers.get(recordId);
@@ -2738,6 +2739,7 @@
             const price = parseFloat(data.price) || 0;
             const size = parseFloat(data.size) || 1;
             const ratePerHa = size > 0 ? price / size : 0;
+            const ratePerAcre = ratePerHa / 2.47105; // Conversion: 1 Ha = 2.47105 Acres
             
             callout.innerHTML = `
                 <div class="callout-triangle-border"></div>
@@ -2751,7 +2753,8 @@
                     ${data.districtCity || data.district || ''}
                 </div>
                 <div class="callout-rate">
-                    Rate: Ugx ${Number(ratePerHa).toLocaleString()}/Ha
+                    Rate: Ugx ${Number(ratePerHa).toLocaleString()}/Ha<br>
+                    <span style="font-size: 0.75rem; color: #7f8c8d;">(Ugx ${Number(ratePerAcre).toLocaleString()}/Acre)</span>
                 </div>
             `;
             
@@ -2932,7 +2935,7 @@
         }
 
         // ============================================
-        // PROCESS AND STORE RECORD (UPDATED for data structure)
+        // PROCESS AND STORE RECORD (UPDATED with Rate per Acre)
         // ============================================
         function processAndStoreRecord(id, data) {
             // Parse all date fields
@@ -2972,6 +2975,7 @@
             const price = parseFloat(data.price) || 0;
             const size = parseFloat(data.size) || 1;
             const rate = size > 0 ? price / size : 0;
+            const ratePerAcre = rate / 2.47105; // Conversion: 1 Ha = 2.47105 Acres
             
             // Get officer email - prioritize userEmail as shown in data structure
             const officerEmail = data.userEmail || data.officerEmail || data.email || data.collectorEmail || '';
@@ -3021,10 +3025,11 @@
                 description: data.description || '',
                 landUse: data.landUse || '',
                 
-                // Valuation
+                // Valuation (UPDATED with ratePerAcre)
                 price: price,
                 size: size,
                 rate: rate,
+                ratePerAcre: ratePerAcre,
                 
                 // Location data
                 latitude: latitude,
@@ -3078,7 +3083,7 @@
         }
 
         // ============================================
-        // RENDER PROPERTY LIST ITEM (UPDATED for data structure)
+        // RENDER PROPERTY LIST ITEM (UPDATED with Rate per Acre)
         // ============================================
         function renderPropertyListItem(id, data) {
             const container = document.getElementById('recordList');
@@ -3120,6 +3125,7 @@
             const price = parseFloat(record.price) || 0;
             const size = parseFloat(record.size) || 1;
             const ratePerHa = size > 0 ? price / size : 0;
+            const ratePerAcre = ratePerHa / 2.47105;
             
             const displayLocation = record.districtCity || record.district || 'Unknown Location';
             
@@ -3143,13 +3149,19 @@
                     <div><i class="fa-solid fa-map-marker-alt"></i> ${displayLocation}</div>
                     <div><i class="fa-solid fa-calendar"></i> ${dateStr}</div>
                     ${price > 0 ? `<div><i class="fa-solid fa-money-bill-wave"></i> Ugx ${Number(price).toLocaleString()}</div>` : ''}
-		    ${size > 0 ? `<div><i class="fa-solid fa-ruler-combined"></i> ${size} Ha</div>` : ''}
-		    ${ratePerHa > 0 ? `<div class="rate-preview">
-    			<div>
-        		<span class="rate-label">Rate per Ha:</span>
-        		<span class="rate-value">Ugx ${Number(ratePerHa).toLocaleString()}</span>
-    		   </div>
-		</div>` : ''}
+                    ${size > 0 ? `<div><i class="fa-solid fa-ruler-combined"></i> ${size} Ha</div>` : ''}
+                    ${ratePerHa > 0 ? `<div class="rate-preview">
+                        <div style="display: flex; flex-direction: column;">
+                            <div>
+                                <span class="rate-label">Rate per Ha:</span>
+                                <span class="rate-value">Ugx ${Number(ratePerHa).toLocaleString()}</span>
+                            </div>
+                            <div style="margin-top: 3px;">
+                                <span class="rate-label">Rate per Acre:</span>
+                                <span class="rate-value" style="color: var(--info);">Ugx ${Number(ratePerAcre).toLocaleString()}</span>
+                            </div>
+                        </div>
+                    </div>` : ''}
                 </div>
                 <button class="show-property-btn" onclick="showPropertyOnMap('${id}'); event.stopPropagation();">
                     <i class="fa-solid fa-map-marker-alt"></i> Show on Map
@@ -3181,6 +3193,7 @@
             const price = parseFloat(record.price) || 0;
             const size = parseFloat(record.size) || 1;
             const ratePerHa = size > 0 ? price / size : 0;
+            const ratePerAcre = ratePerHa / 2.47105;
             
             const displayLocation = record.districtCity || record.district || 'Unknown Location';
             
@@ -3206,9 +3219,15 @@
                     ${price > 0 ? `<div><i class="fa-solid fa-money-bill-wave"></i> UGX ${Number(price).toLocaleString()}</div>` : ''}
                     ${size > 0 ? `<div><i class="fa-solid fa-ruler-combined"></i> ${size} Ha</div>` : ''}
                     ${ratePerHa > 0 ? `<div class="rate-preview">
-                        <div>
-                            <span class="rate-label">Rate per Ha:</span>
-                            <span class="rate-value">UGX ${Number(ratePerHa).toLocaleString()}</span>
+                        <div style="display: flex; flex-direction: column;">
+                            <div>
+                                <span class="rate-label">Rate per Ha:</span>
+                                <span class="rate-value">UGX ${Number(ratePerHa).toLocaleString()}</span>
+                            </div>
+                            <div style="margin-top: 3px;">
+                                <span class="rate-label">Rate per Acre:</span>
+                                <span class="rate-value" style="color: var(--info);">UGX ${Number(ratePerAcre).toLocaleString()}</span>
+                            </div>
                         </div>
                     </div>` : ''}
                 </div>
@@ -3235,7 +3254,7 @@
         }
 
         // ============================================
-        // OPEN REVIEW MODAL (UPDATED for data structure)
+        // OPEN REVIEW MODAL (UPDATED with Rate per Acre)
         // ============================================
         function openReview(recordId) {
             const record = allRecords.find(r => r.firebaseId === recordId);
@@ -3335,11 +3354,11 @@
                     <i class="fa-solid fa-chart-line"></i> Valuation Details
                 </div>
                 <div class="data-grid">
-                     <div>
+                    <div>
                         <div class="data-group">
-    			<span class="data-label">Total Price</span>
-    			<span class="data-value">Ugx ${Number(record.price).toLocaleString()}</span>
-			</div>
+                            <span class="data-label">Total Price</span>
+                            <span class="data-value">Ugx ${Number(record.price).toLocaleString()}</span>
+                        </div>
                         <div class="data-group">
                             <span class="data-label">Size</span>
                             <span class="data-value">${record.size} Ha</span>
@@ -3347,11 +3366,17 @@
                     </div>
                     <div>
                         <div class="data-group">
-    			<span class="data-label">Rate per Hectare</span>
-    			<span class="data-value" style="color: var(--accent); font-weight: bold;">
-        		Ugx ${Number(record.rate).toLocaleString()}/Ha
-    			</span>
-			</div>
+                            <span class="data-label">Rate per Hectare</span>
+                            <span class="data-value" style="color: var(--accent); font-weight: bold;">
+                            Ugx ${Number(record.rate).toLocaleString()}/Ha
+                            </span>
+                        </div>
+                        <div class="data-group">
+                            <span class="data-label">Rate per Acre</span>
+                            <span class="data-value" style="color: var(--info); font-weight: bold;">
+                            Ugx ${Number(record.ratePerAcre).toLocaleString()}/Acre
+                            </span>
+                        </div>
                         <div class="data-group">
                             <span class="data-label">Land Use</span>
                             <span class="data-value">${record.landUse || 'N/A'}</span>
@@ -3507,7 +3532,7 @@
         }
 
         // ============================================
-        // EDIT MODAL FUNCTIONS
+        // EDIT MODAL FUNCTIONS (UPDATED with Rate per Acre)
         // ============================================
         function populateEditForm(record) {
             const editBody = document.getElementById('editModalBody');
@@ -3689,7 +3714,8 @@
                 if (recordIndex !== -1) {
                     allRecords[recordIndex] = {
                         ...allRecords[recordIndex],
-                        ...updatedData
+                        ...updatedData,
+                        ratePerAcre: rate / 2.47105 // Recalculate rate per acre
                     };
                     
                     renderPropertyListItem(currentReviewId, allRecords[recordIndex]);
@@ -4069,10 +4095,10 @@
                     <div class="summary-label">Awaiting review</div>
                 </div>
                 <div class="summary-card">
-    			<h4><i class="fa-solid fa-money-bill-wave" style="color: var(--accent);"></i> Total Value</h4>
-    			<div class="summary-value">Ugx ${Number(totalValue).toLocaleString(undefined, {maximumFractionDigits: 0})}</div>
-    			<div class="summary-label">Avg: Ugx ${Number(avgValue).toLocaleString(undefined, {maximumFractionDigits: 0})}</div>
-		</div>
+                    <h4><i class="fa-solid fa-money-bill-wave" style="color: var(--accent);"></i> Total Value</h4>
+                    <div class="summary-value">Ugx ${Number(totalValue).toLocaleString(undefined, {maximumFractionDigits: 0})}</div>
+                    <div class="summary-label">Avg: Ugx ${Number(avgValue).toLocaleString(undefined, {maximumFractionDigits: 0})}</div>
+                </div>
             `;
         }
 
@@ -4091,12 +4117,14 @@
                         pending: 0,
                         approved: 0,
                         rejected: 0,
-                        totalValue: 0
+                        totalValue: 0,
+                        totalSize: 0
                     };
                 }
                 
                 staffStats[email].total++;
                 staffStats[email].totalValue += parseFloat(record.price) || 0;
+                staffStats[email].totalSize += parseFloat(record.size) || 0;
                 
                 const status = record.validationStatus || record.status || 'pending';
                 if (status === 'approved') staffStats[email].approved++;
@@ -4107,7 +4135,9 @@
             const body = document.getElementById('staffPerformanceBody');
             body.innerHTML = Object.values(staffStats)
                 .sort((a, b) => b.total - a.total)
-                .map(staff => `
+                .map(staff => {
+                    const avgRate = staff.totalSize > 0 ? staff.totalValue / staff.totalSize : 0;
+                    return `
                     <tr>
                         <td>${staff.name}</td>
                         <td>${staff.email}</td>
@@ -4116,10 +4146,10 @@
                         <td>${staff.approved}</td>
                         <td>${staff.rejected}</td>
                         <td>${staff.total > 0 ? ((staff.approved/staff.total)*100).toFixed(1) + '%' : '0%'}</td>
-                        <td>Ugx ${staff.total > 0 ? Number(staff.totalValue/staff.total).toLocaleString(undefined, {maximumFractionDigits: 0}) : 0}</td>
+                        <td>Ugx ${Number(avgRate).toLocaleString(undefined, {maximumFractionDigits: 0})}/Ha</td>
                         <td>Ugx ${Number(staff.totalValue).toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
                     </tr>
-                `).join('');
+                `}).join('');
         }
 
         function updateWeeklyAnalytics() {
@@ -4155,6 +4185,7 @@
                         approved: 0,
                         rejected: 0,
                         totalValue: 0,
+                        totalSize: 0,
                         officers: new Set(),
                         districts: new Set()
                     };
@@ -4163,6 +4194,7 @@
                 const stat = weeklyData[weekKey];
                 stat.total++;
                 stat.totalValue += parseFloat(record.price) || 0;
+                stat.totalSize += parseFloat(record.size) || 0;
                 
                 if (record.officerEmail) stat.officers.add(record.officerEmail);
                 if (record.districtCity || record.district) {
@@ -4179,7 +4211,9 @@
             body.innerHTML = Object.values(weeklyData)
                 .sort((a, b) => b.week.localeCompare(a.week))
                 .slice(0, 52)
-                .map(week => `
+                .map(week => {
+                    const avgRate = week.totalSize > 0 ? week.totalValue / week.totalSize : 0;
+                    return `
                     <tr>
                         <td>${week.week}</td>
                         <td>${week.startDate.toLocaleDateString()}</td>
@@ -4188,12 +4222,12 @@
                         <td>${week.pending}</td>
                         <td>${week.approved}</td>
                         <td>${week.rejected}</td>
-                        <td>Ugx ${week.total > 0 ? Number(week.totalValue/week.total).toLocaleString(undefined, {maximumFractionDigits: 0}) : 0}</td>
-			<td>Ugx ${Number(week.totalValue).toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
+                        <td>Ugx ${Number(avgRate).toLocaleString(undefined, {maximumFractionDigits: 0})}/Ha</td>
+                        <td>Ugx ${Number(week.totalValue).toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
                         <td>${week.officers.size}</td>
                         <td>${week.districts.size}</td>
                     </tr>
-                `).join('');
+                `}).join('');
         }
 
         function updateMonthlyAnalytics() {
@@ -4215,6 +4249,7 @@
                         approved: 0,
                         rejected: 0,
                         totalValue: 0,
+                        totalSize: 0,
                         officers: new Set(),
                         districts: new Set()
                     };
@@ -4223,6 +4258,7 @@
                 const stat = monthlyData[monthKey];
                 stat.total++;
                 stat.totalValue += parseFloat(record.price) || 0;
+                stat.totalSize += parseFloat(record.size) || 0;
                 
                 if (record.officerEmail) stat.officers.add(record.officerEmail);
                 if (record.districtCity || record.district) {
@@ -4238,7 +4274,9 @@
             const body = document.getElementById('monthlyBody');
             body.innerHTML = Object.values(monthlyData)
                 .sort((a, b) => b.key.localeCompare(a.key))
-                .map(month => `
+                .map(month => {
+                    const avgRate = month.totalSize > 0 ? month.totalValue / month.totalSize : 0;
+                    return `
                     <tr>
                         <td>${month.month}</td>
                         <td>${month.year}</td>
@@ -4246,12 +4284,12 @@
                         <td>${month.pending}</td>
                         <td>${month.approved}</td>
                         <td>${month.rejected}</td>
-                        <td>Ugx ${month.total > 0 ? Number(month.totalValue/month.total).toLocaleString(undefined, {maximumFractionDigits: 0}) : 0}</td>
+                        <td>Ugx ${Number(avgRate).toLocaleString(undefined, {maximumFractionDigits: 0})}/Ha</td>
                         <td>Ugx ${Number(month.totalValue).toLocaleString(undefined, {maximumFractionDigits: 0})}</td> 
                         <td>${month.officers.size}</td>
                         <td>${month.districts.size}</td>
                     </tr>
-                `).join('');
+                `}).join('');
         }
 
         function updateQuarterlyAnalytics() {
@@ -4274,6 +4312,7 @@
                         approved: 0,
                         rejected: 0,
                         totalValue: 0,
+                        totalSize: 0,
                         officers: new Set(),
                         districts: new Set()
                     };
@@ -4282,6 +4321,7 @@
                 const stat = quarterlyData[quarterKey];
                 stat.total++;
                 stat.totalValue += parseFloat(record.price) || 0;
+                stat.totalSize += parseFloat(record.size) || 0;
                 
                 if (record.officerEmail) stat.officers.add(record.officerEmail);
                 if (record.districtCity || record.district) {
@@ -4297,7 +4337,9 @@
             const body = document.getElementById('quarterlyBody');
             body.innerHTML = Object.values(quarterlyData)
                 .sort((a, b) => b.key.localeCompare(a.key))
-                .map(quarter => `
+                .map(quarter => {
+                    const avgRate = quarter.totalSize > 0 ? quarter.totalValue / quarter.totalSize : 0;
+                    return `
                     <tr>
                         <td>${quarter.quarter}</td>
                         <td>${quarter.year}</td>
@@ -4305,12 +4347,12 @@
                         <td>${quarter.pending}</td>
                         <td>${quarter.approved}</td>
                         <td>${quarter.rejected}</td>
-                        <td>Ugx ${quarter.total > 0 ? Number(quarter.totalValue/quarter.total).toLocaleString(undefined, {maximumFractionDigits: 0}) : 0}</td>
+                        <td>Ugx ${Number(avgRate).toLocaleString(undefined, {maximumFractionDigits: 0})}/Ha</td>
                         <td>Ugx ${Number(quarter.totalValue).toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
                         <td>${quarter.officers.size}</td>
                         <td>${quarter.districts.size}</td>
                     </tr>
-                `).join('');
+                `}).join('');
         }
 
         function updateAnnuallyAnalytics() {
@@ -4330,6 +4372,7 @@
                         approved: 0,
                         rejected: 0,
                         totalValue: 0,
+                        totalSize: 0,
                         officers: new Set(),
                         districts: new Set()
                     };
@@ -4338,6 +4381,7 @@
                 const stat = annualData[year];
                 stat.total++;
                 stat.totalValue += parseFloat(record.price) || 0;
+                stat.totalSize += parseFloat(record.size) || 0;
                 
                 if (record.officerEmail) stat.officers.add(record.officerEmail);
                 if (record.districtCity || record.district) {
@@ -4353,19 +4397,21 @@
             const body = document.getElementById('annuallyBody');
             body.innerHTML = Object.values(annualData)
                 .sort((a, b) => b.year - a.year)
-                .map(year => `
+                .map(year => {
+                    const avgRate = year.totalSize > 0 ? year.totalValue / year.totalSize : 0;
+                    return `
                     <tr>
                         <td>${year.year}</td>
                         <td>${year.total}</td>
                         <td>${year.pending}</td>
                         <td>${year.approved}</td>
                         <td>${year.rejected}</td>
-                        <td>Ugx ${year.total > 0 ? Number(year.totalValue/year.total).toLocaleString(undefined, {maximumFractionDigits: 0}) : 0}</td>
+                        <td>Ugx ${Number(avgRate).toLocaleString(undefined, {maximumFractionDigits: 0})}/Ha</td>
                         <td>Ugx ${Number(year.totalValue).toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
                         <td>${year.officers.size}</td>
                         <td>${year.districts.size}</td>
                     </tr>
-                `).join('');
+                `}).join('');
         }
 
         // ============================================
@@ -5534,7 +5580,7 @@
         }
 
         // ============================================
-        // EXPORT FUNCTIONS
+        // EXPORT FUNCTIONS (UPDATED with Rate per Acre)
         // ============================================
         function exportApproved(format) {
             const approvedRecords = allRecords.filter(r => (r.validationStatus || r.status) === 'approved');
@@ -5576,6 +5622,7 @@
                         value: record.price,
                         size: record.size,
                         rate: record.rate,
+                        ratePerAcre: record.ratePerAcre,
                         landUse: record.landUse,
                         dataSource: record.dataSource,
                         officer: record.officerName,
@@ -5601,7 +5648,7 @@
 
         function exportToCSV(records) {
             const headers = ["Property ID", "Property Name", "District/City", "Subcounty", "Parish", "Village", 
-                            "Market Value", "Plot Size (Ha)", "Rate/Ha", "Land Use", "Data Source", 
+                            "Market Value", "Plot Size (Ha)", "Rate/Ha", "Rate/Acre", "Land Use", "Data Source", 
                             "Officer Name", "Officer Email", "User ID", "Submission Date", "Coordinates"];
             
             const csvContent = [
@@ -5616,6 +5663,7 @@
                     record.price || 0,
                     record.size || 0,
                     record.rate || 0,
+                    record.ratePerAcre || 0,
                     `"${record.landUse || ''}"`,
                     `"${record.dataSource || ''}"`,
                     `"${record.officerName || ''}"`,
